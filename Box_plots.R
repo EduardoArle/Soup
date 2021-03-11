@@ -38,15 +38,108 @@ results_acc3 <- merge(results_acc2,merge_table,by="Species",
 results_biogeo3 <- merge(results_biogeo2,merge_table,by="Species",
                       all.x = T,sort = F)
 
-#plot
+
+#### TAXA
+
+#plot accuracy
 boxplot(auc_test ~ Group, data = results_acc3, 
         col = rgb(189,227,139,maxColorValue = 255),
         border = rgb(90,155,45,maxColorValue = 255),
         ylab = "AUC",xlab = "Model input data",boxwex = .2,
-        notch = T,names = c("Amphibia","Aves","Mammalia","Plantae"))
+        notch = T,names = c("Amphibia","Aves","Mammalia","Plantae"),
+        ylim = c(.6,1),xaxs = "i", yaxs = "i", las = 1)
 
 boxplot(rmse_test ~ Group, data = results_acc3, 
         col = rgb(242,187,221,maxColorValue = 255),
         border = rgb(195,20,121,maxColorValue = 255),
         ylab = "RMSE",xlab = "Model input data",boxwex = .2,
-        notch = T,names = c("Amphibia","Aves","Mammalia","Plantae"))
+        notch = T,names = c("Amphibia","Aves","Mammalia","Plantae"),
+        ylim = c(0,.8),xaxs = "i", yaxs = "i", las = 1)
+
+#plot biogeo status
+boxplot(auc_test ~ Group, data = results_biogeo3, 
+        col = rgb(189,227,139,maxColorValue = 255),
+        border = rgb(90,155,45,maxColorValue = 255),
+        ylab = "AUC",xlab = "Model input data",boxwex = .2,
+        notch = F,names = c("Amphibia","Aves","Mammalia","Plantae"),
+        ylim = c(.6,1),xaxs = "i", yaxs = "i", las = 1)
+
+boxplot(rmse_test ~ Group, data = results_biogeo3, 
+        col = rgb(242,187,221,maxColorValue = 255),
+        border = rgb(195,20,121,maxColorValue = 255),
+        ylab = "RMSE",xlab = "Model input data",boxwex = .2,
+        notch = T,names = c("Amphibia","Aves","Mammalia","Plantae"),
+        ylim = c(0,.8),xaxs = "i", yaxs = "i", las = 1)
+
+
+#### Continent
+
+#plot accuracy
+boxplot(auc_test ~ Cont., data = results_acc3, 
+        col = rgb(189,227,139,maxColorValue = 255),
+        border = rgb(90,155,45,maxColorValue = 255),
+        ylab = "AUC",xlab = "Model input data",boxwex = .2,
+        notch = T,cex.axis = .71,
+        ylim = c(.6,1),
+        xaxs = "i", yaxs = "i", las = 1)
+
+boxplot(rmse_test ~ Cont., data = results_acc3, 
+        col = rgb(242,187,221,maxColorValue = 255),
+        border = rgb(195,20,121,maxColorValue = 255),
+        ylab = "RMSE",xlab = "Model input data",boxwex = .2,
+        notch = T,cex.axis = .71,
+        ylim = c(0,.8),
+        xaxs = "i", yaxs = "i", las = 1)
+
+#plot biogeo status
+boxplot(auc_test ~Cont., data = results_biogeo3, 
+        col = rgb(189,227,139,maxColorValue = 255),
+        border = rgb(90,155,45,maxColorValue = 255),
+        ylab = "AUC",xlab = "Model input data",boxwex = .2,
+        notch = F,cex.axis = .71,
+        ylim = c(.6,1),
+        xaxs = "i", yaxs = "i", las = 1)
+
+boxplot(rmse_test ~ Cont., data = results_biogeo3, 
+        col = rgb(242,187,221,maxColorValue = 255),
+        border = rgb(195,20,121,maxColorValue = 255),
+        ylab = "RMSE",xlab = "Model input data",boxwex = .2,
+        notch = T,cex.axis = .71,
+        ylim = c(0,.8),
+        xaxs = "i", yaxs = "i", las = 1)
+
+#### Size
+
+#plot accuracy
+boxplot(auc_test ~ Range.size.class, data = results_acc3, 
+        col = rgb(189,227,139,maxColorValue = 255),
+        border = rgb(90,155,45,maxColorValue = 255),
+        ylab = "AUC",xlab = "Model input data",boxwex = .2,
+        notch = T,names = c("S1","S2","S3","S4"),
+        ylim = c(.6,1),
+        xaxs = "i", yaxs = "i", las = 1)
+
+boxplot(rmse_test ~ Range.size.class, data = results_acc3, 
+        col = rgb(242,187,221,maxColorValue = 255),
+        border = rgb(195,20,121,maxColorValue = 255),
+        ylab = "RMSE",xlab = "Model input data",boxwex = .2,
+        notch = T,names = c("S1","S2","S3","S4"),
+        ylim = c(0,.8),
+        xaxs = "i", yaxs = "i", las = 1)
+
+#plot biogeo status
+boxplot(auc_test ~Range.size.class, data = results_biogeo3, 
+        col = rgb(189,227,139,maxColorValue = 255),
+        border = rgb(90,155,45,maxColorValue = 255),
+        ylab = "AUC",xlab = "Model input data",boxwex = .2,
+        notch = F,names = c("S1","S2","S3","S4"),
+        ylim = c(.6,1),
+        xaxs = "i", yaxs = "i", las = 1)
+
+boxplot(rmse_test ~ Range.size.class, data = results_biogeo3, 
+        col = rgb(242,187,221,maxColorValue = 255),
+        border = rgb(195,20,121,maxColorValue = 255),
+        ylab = "RMSE",xlab = "Model input data",boxwex = .2,
+        notch = T,names = c("S1","S2","S3","S4"),
+        ylim = c(0,.8),
+        xaxs = "i", yaxs = "i", las = 1)
