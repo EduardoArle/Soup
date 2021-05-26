@@ -1,0 +1,45 @@
+---
+title: "Download_GBIF_data"
+output: html_document
+---
+
+Get path from GBIF website, download it in puttym and unzip
+
+
+Citation - GBIF.org (02 May 2021) GBIF Occurrence Download https://doi.org/10.15468/dl.7tjwdj 
+```{bash}
+
+wget https://api.gbif.org/v1/occurrence/download/request/0265941-200613084148143.zip
+
+unzip 0265941-200613084148143.zip
+
+```
+
+
+```{bash}
+awk 'BEGIN { FS = "\t" } ; { print $1 FS $37 FS $62 FS $64 FS $68 FS $69 FS $103 FS $104 FS $105 FS $121 FS $122 FS $123 FS $124 FS $125 FS $133 FS $134 FS $135 FS $136 FS $183 FS $191 FS $192 FS $193 FS $194 FS $195 FS $196 FS $207 FS $216 FS $218 FS $219 FS $230 FS $231}' occurrence.txt > selected_columns.csv 
+cd /gpfs1/data/idiv_meyer/01_projects/Caterina/raw/1
+split -l 10000000 selected_columns.txt 
+awk '{if (NR!=1) {print}}' xaa > header.csv
+sed -i '1d' xaa
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
