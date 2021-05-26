@@ -9,15 +9,40 @@ Get path from GBIF website, download it in puttym and unzip
 Citation - GBIF.org (02 May 2021) GBIF Occurrence Download https://doi.org/10.15468/dl.7tjwdj 
 ```{bash}
 
-wget https://api.gbif.org/v1/occurrence/download/request/0265941-200613084148143.zip
+wget https://api.gbif.org/v1/occurrence/download/request/0265938-200613084148143.zip
 
-unzip 0265941-200613084148143.zip
+unzip 0265938-200613084148143.zip
 
 ```
 
 
+Split the data by thematic fields
 ```{bash}
-awk 'BEGIN { FS = "\t" } ; { print $1 FS $37 FS $62 FS $64 FS $68 FS $69 FS $103 FS $104 FS $105 FS $121 FS $122 FS $123 FS $124 FS $125 FS $133 FS $134 FS $135 FS $136 FS $183 FS $191 FS $192 FS $193 FS $194 FS $195 FS $196 FS $207 FS $216 FS $218 FS $219 FS $230 FS $231}' occurrence.txt > selected_columns.csv 
+#species 
+awk 'BEGIN { FS = "\t" } ; { print $1 FS $10}' ../0265938-200613084148143.csv > gbifID_species.txt
+
+#coordinates
+awk 'BEGIN { FS = "\t" } ; { print $1 FS $22 FS $23}' ../0265938-200613084148143.csv > gbifID_coordinates.txt
+
+#date
+awk 'BEGIN { FS = "\t" } ; { print $1 FS $31 FS $32 FS $33}' ../0265938-200613084148143.csv > gbifID_date.txt
+
+#basisOfRecord
+awk 'BEGIN { FS = "\t" } ; { print $1 FS $36}' ../0265938-200613084148143.csv > gbifID_basisOfRecord.txt
+
+#establishmentMeans
+awk 'BEGIN { FS = "\t" } ; { print $1 FS $47}' ../0265938-200613084148143.csv > gbifID_establishmentMeans.txt
+
+awk 'BEGIN { FS = "\t" } ; { print $1 FS $22 FS $23}' ../test.csv
+
+setwd("/gpfs1/data/idiv_meyer/00_data/original/GBIF/17_may_2021")
+t <- read.csv("0265938-200613084148143.csv",sep = "\t",nrow=100)
+
+write.table(t,"test.csv",sep="\t",row.names=F)
+
+cat gbifID_coordinates.txt | head
+
+
 cd /gpfs1/data/idiv_meyer/01_projects/Caterina/raw/1
 split -l 10000000 selected_columns.txt 
 awk '{if (NR!=1) {print}}' xaa > header.csv
